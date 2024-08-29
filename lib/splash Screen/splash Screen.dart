@@ -1,5 +1,11 @@
 import 'dart:async';
-import 'package:flutter/material.dart'; // Make sure to import Get if you're using GetX
+import 'package:ecommerce/Api_List/ApiHelper.dart';
+import 'package:ecommerce/onbording%20Screen/onbording%20Screen.dart';
+import 'package:ecommerce/splash%20Screen/Hivehelper.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import '../MainScreens/MainScreen.dart'; // Make sure to import Get if you're using GetX
 
 class SplashScreen extends StatefulWidget {
   static const String routeName = "splashScreen"; // Fixed typo in route name
@@ -10,30 +16,42 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  Timer? _timer;
+
   int color1 = 0xff294C25;
   int color2 = 0xff58AD53;
 
   void _changeSplash() {
-    // Swap colors
     final temp = color1;
     color1 = color2;
     color2 = temp;
-    setState(() {
-    });
+    print ("hello +==========");
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   @override
   void initState() {
     super.initState();
 
-    const oneSec = Duration(seconds: 1);
-    Timer.periodic(oneSec, (Timer t) => _changeSplash());
-
-    Future.delayed(Duration(seconds: 3)).then(
+    Future.delayed(const Duration(seconds: 3)).then(
           (val) {
-        Navigator.of(context).pushReplacementNamed("onbordingScreen"); // Adjust as needed
+                  Get.offAll(onbordingScreen());
+      /*      if(Hivehelper.checkfirst()){
+              Navigator.of(context).pushNamed("onboardingScreen"); // Adjust as needed
+            }
+            else {
+              Get.offAll(Mainscreen());
+            }*/
       },
     );
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel(); // Cancel the Timer when the widget is disposed
+    super.dispose();
   }
 
   @override

@@ -1,5 +1,4 @@
 
-Certainly! Here’s a refined version of your "Tasawq" project description, formatted for a GitHub README:
 
 Tasawq
 Tasawq is a Flutter-based mobile application designed to enhance the online shopping experience for supermarket products. This project was recognized as one of the top 20 projects in the Google Middle East competition.
