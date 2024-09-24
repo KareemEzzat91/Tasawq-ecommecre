@@ -38,12 +38,12 @@ class _SplashScreenState extends State<SplashScreen> {
     Future.delayed(const Duration(seconds: 3)).then(
           (val) {
                   Get.offAll(onbordingScreen());
-      /*      if(Hivehelper.checkfirst()){
+            if(Hivehelper.checkfirst()){
               Navigator.of(context).pushNamed("onboardingScreen"); // Adjust as needed
             }
             else {
               Get.offAll(Mainscreen());
-            }*/
+            }
       },
     );
   }

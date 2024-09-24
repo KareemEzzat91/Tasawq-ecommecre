@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart'; // Import the carousel_slider package
 
+import '../../responsive/responsive.dart';
 import '../DetailPage.dart';
 import 'Banners/BannersDatamdel.dart';
 import 'HomepageModel/HomeModel.dart';
@@ -98,9 +99,9 @@ class Homepage extends StatelessWidget {
                       style: TextStyle(color: Colors.red),
                     ),
                   );
-                }
-                final data = snapshot.data ?? [];
-                print("data length: ${data.length}");
+                  }
+                  final data = snapshot.data ?? [];
+                  print("data length: ${data.length}");
 
                 return ListView.builder(
                   physics: NeverScrollableScrollPhysics(),
@@ -123,6 +124,7 @@ class Homepage extends StatelessWidget {
 
                       },
                       child: Container(
+                        height: Responsive.isMobile(context) ?350:800 ,
                         margin: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
@@ -144,7 +146,7 @@ class Homepage extends StatelessWidget {
                               child: Image.network(
                                 item.image ?? '',
                                 fit: BoxFit.cover,
-                                height: 200,
+                                height: Responsive.isMobile(context) ?150:400,
                                 width: double.infinity,
                                 loadingBuilder: (context, child, progress) {
                                   if (progress == null) {
@@ -165,7 +167,7 @@ class Homepage extends StatelessWidget {
                               padding: const EdgeInsets.all(8.0),
                               child: Text(
                                 item.name ?? 'No Name',
-                                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                                style: TextStyle(fontSize:Responsive.isMobile(context)? 18:30, fontWeight: FontWeight.bold),
                               ),
                             ),
                             Padding(
@@ -174,6 +176,7 @@ class Homepage extends StatelessWidget {
                                 item.description ?? 'No Description',
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
+                                style: TextStyle(fontSize: Responsive.isMobile(context) ?10:35),
                               ),
                             ),
                             Padding(
@@ -183,17 +186,17 @@ class Homepage extends StatelessWidget {
                                 children: [
                                   Text(
                                     '\$${price.toStringAsFixed(2)}',
-                                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.green),
+                                    style: TextStyle(fontSize: Responsive.isMobile(context) ?16:35, fontWeight: FontWeight.bold, color: Colors.green),
                                   ),
                                   if (discount > 0)
                                     Text(
                                       '${discount}% OFF',
-                                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.red),
+                                      style: TextStyle(fontSize: Responsive.isMobile(context) ?16:35, fontWeight: FontWeight.bold, color: Colors.red),
                                     ),
                                   if (oldPrice > 0)
                                     Text(
                                       '\$${oldPrice.toStringAsFixed(2)}',
-                                      style: TextStyle(fontSize: 14, decoration: TextDecoration.lineThrough, color: Colors.grey),
+                                      style: TextStyle(fontSize: Responsive.isMobile(context) ?16:35, decoration: TextDecoration.lineThrough, color: Colors.grey),
                                     ),
                                 ],
                               ),

@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../responsive/responsive.dart';
+
 class CustomTextField extends StatefulWidget {
   final String text;
   final double height;
@@ -31,7 +33,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
       children: [
         Text(
           widget.text,
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(color: Colors.black,fontSize: Responsive.isMobile(context)? 15 :50 ),
         ),
         SizedBox(
           height: widget.height * .01,
@@ -41,10 +43,14 @@ class _CustomTextFieldState extends State<CustomTextField> {
 
           validator: widget.validator,
           controller: widget.controller,
+          style: TextStyle(fontSize:Responsive.isMobile(context)?20 :50),
           decoration: InputDecoration(
+
             focusedBorder: OutlineInputBorder(
+
               borderSide: BorderSide(color: Color(0xff58AD53)),
               borderRadius: BorderRadius.circular(20),
+
             ),
             border: OutlineInputBorder(
               borderSide: BorderSide(color: Color(0xff58AD53)),

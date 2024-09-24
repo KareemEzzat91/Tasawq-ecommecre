@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 
 
 import '../customtextfiled/customtextfiled.dart';
+import '../responsive/responsive.dart';
 import 'Logincubit/login_cubit.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -136,19 +137,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
         padding: const EdgeInsets.all(25.0),
         child: Container(
           width: double.infinity,
-          height: 60,
-          child: Center(child: Text(Tx, style: TextStyle(fontSize: 35,
-              fontWeight: FontWeight.bold,
-              color: Colors.white),),),
+          height: Responsive.isMobile(context)?60:100,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
               color: Color(0xff58AD53),
-              boxShadow: [
+              boxShadow: const [
                 BoxShadow(color: Colors.black,
                     blurRadius: 10,
                     blurStyle: BlurStyle.outer)
               ]
           ),
+          child: Center(child: Text(Tx, style: TextStyle(fontSize:  Responsive.isMobile(context)? 35 :50,
+              fontWeight: FontWeight.bold,
+              color: Colors.white),),),
 
         ),
       ),

@@ -1,12 +1,16 @@
 import 'package:ecommerce/customtextfiled/customtextfiled.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
+import '../MainScreens/Home/HomePage.dart';
 import '../MainScreens/MainScreen.dart';
+import '../responsive/responsive.dart';
 import 'Logincubit/login_cubit.dart';
 
 class Login extends StatefulWidget {
@@ -19,6 +23,43 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  Future signInWithGoogle(BuildContext context) async {
+    try {
+      // Trigger the authentication flow
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+      print("1111111111111111111111111111");
+
+      if (googleUser == null) {
+        // The sign-in was canceled by the user
+        print("Sign-in was canceled");
+        return;
+      }
+      // Obtain the auth details from the request
+      final GoogleSignInAuthentication? googleAuth = await googleUser.authentication;
+      print("@22222222222222222222222222211");
+
+      // Create a new credential
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth?.accessToken,
+        idToken: googleAuth?.idToken,
+      );
+      print("33333333333333333333333333333333");
+
+      // Once signed in, return the UserCredential
+      await FirebaseAuth.instance.signInWithCredential(credential);
+      print("444444444444444444444444444");
+
+      // Navigate to the home screen
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => Mainscreen()),
+      );
+    } catch (e) {
+      print("An error occurred during Google sign-in: $e");
+      // Handle error (show an alert dialog, etc.)
+    }
+  }
+
 
   late final String? Function(String?)? validator;
   final _nameController = TextEditingController();
@@ -129,9 +170,9 @@ class _LoginState extends State<Login> {
                             padding: const EdgeInsets.only(top: 20),
                             child: Container(
                               alignment: Alignment.center,
-                              child: const Text("Did you forget your password?",
+                              child:  Text("Did you forget your password?",
                                 style: TextStyle(
-                                  fontSize: 20,
+                                  fontSize: Responsive.isMobile(context)? 20:40,
                                   color: Color(0xff58AD53),
                                 ),
                               ),
@@ -141,7 +182,11 @@ class _LoginState extends State<Login> {
                       BlocBuilder<LoginCubit, LoginState>(
                         builder: (context, state) { return buildGestureDetector("Login",state);},),
                       BlocBuilder<LoginCubit, LoginState>(
-                        builder: (context, state) { return buildGestureDetector("Sign Up",state);},)
+                        builder: (context, state) { return buildGestureDetector("Sign Up",state);},),
+                          TextButton(
+                              onPressed:() {signInWithGoogle(context );},
+                              child: Text("Gooogle Sign in")),
+
                         ],
                       ),
                     ),
@@ -163,7 +208,7 @@ class _LoginState extends State<Login> {
       child: Text(
         name,
         style: TextStyle(
-          fontSize: 20,
+          fontSize: Responsive.isMobile(context)? 25 :45,
           color: Colors.white,
         ),
       ),

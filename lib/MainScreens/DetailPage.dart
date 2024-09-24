@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../responsive/responsive.dart';
 import 'cubit/SearchModel/SearchModel.dart';
 
 class DetailPage extends StatelessWidget {
@@ -11,7 +12,7 @@ class DetailPage extends StatelessWidget {
     int x ;
     return Scaffold(
       appBar: AppBar(
-        title: Text(item.name ?? "Details"),
+        title: Text(item.name?? "Details",style: TextStyle(fontSize: Responsive.isMobile(context) ?20:50), ),
         leading: IconButton(
           onPressed: () => Navigator.pop(context),
           icon: const Icon(Icons.arrow_back_ios_new),
@@ -23,19 +24,20 @@ class DetailPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildImage(item.image),
+              _buildImage(item.image,context),
               const SizedBox(height: 16),
-              _buildTitle(item.name),
+              _buildTitle(item.name,context),
               const SizedBox(height: 8),
-              _buildDescription(item.description),
+              _buildDescription(item.description,context),
               const SizedBox(height: 8),
-              _buildHorizontalImageList(item.images),
+              _buildHorizontalImageList(item.images,context),
               const SizedBox(height: 10),
-              _buildPrice(item.price ),
+              _buildPrice(item.price,context ),
             Center(
                 child: Padding(
-                  padding: const EdgeInsets.all(28.0),
+                  padding:   EdgeInsets.all(28.0),
                   child: Container(
+                    height: Responsive.isMobile(context) ?30:80,
                     decoration: BoxDecoration(
                       color: Colors.green,
                       shape: BoxShape.rectangle,
@@ -47,13 +49,13 @@ class DetailPage extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text("Add to your cart",style: TextStyle(color: Colors.white,fontSize: 28,fontWeight: FontWeight.bold),),
+                          Text("Add to your cart",style: TextStyle(color: Colors.white,fontSize: Responsive.isMobile(context) ?28:50,fontWeight: FontWeight.bold),),
                           Spacer(),
                           IconButton(
 
                             color: Colors.white, // Icon color
                             onPressed: () {},
-                            icon: Icon(Icons.shopping_bag,size: 28,),
+                            icon: Icon(Icons.shopping_bag,size: Responsive.isMobile(context) ?28:50,),
                           ),
                         ],
                       ),
@@ -68,43 +70,43 @@ class DetailPage extends StatelessWidget {
     );
   }
 
-  Widget _buildImage(String? imageUrl) {
+  Widget _buildImage(String? imageUrl, BuildContext context) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(20),
       child: Image.network(
         imageUrl ?? "",
         fit: BoxFit.cover,
         width: double.infinity,
-        height: 250,
+        height:  Responsive.isMobile(context) ? 250:1000,
         errorBuilder: (context, error, stackTrace) => const Icon(Icons.error, size: 50),
       ),
     );
   }
 
-  Widget _buildTitle(String? title) {
+  Widget _buildTitle(String? title, BuildContext context) {
     return Text(
       title ?? "",
-      style: const TextStyle(
+      style:  TextStyle(
         color: Colors.black,
-        fontSize: 24,
+      fontSize: Responsive.isMobile(context) ?25:70 ,
         fontWeight: FontWeight.bold,
       ),
     );
   }
 
-  Widget _buildDescription(String? description) {
+  Widget _buildDescription(String? description, BuildContext context) {
     return Text(
       description ?? "",
       style: TextStyle(
         color: Colors.grey[700],
-        fontSize: 16,
+          fontSize: Responsive.isMobile(context) ?16:45
       ),
     );
   }
 
-  Widget _buildHorizontalImageList(List<String>? images) {
+  Widget _buildHorizontalImageList(List<String>? images, BuildContext context) {
     return SizedBox(
-      height: 300,
+      height: Responsive.isMobile(context) ?300:600,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: images?.length ?? 0,
@@ -124,12 +126,12 @@ class DetailPage extends StatelessWidget {
     );
   }
 
-  Widget _buildPrice(num? price) {
+  Widget _buildPrice(num? price, BuildContext context) {
     return Text(
       "${price?.toStringAsFixed(2) ?? "N/A"} \$",
-      style: const TextStyle(
+      style:   TextStyle(
         color: Color(0xff294C25),
-        fontSize: 20,
+        fontSize: Responsive.isMobile(context) ?20:90,
         fontWeight: FontWeight.bold,
       ),
     );
