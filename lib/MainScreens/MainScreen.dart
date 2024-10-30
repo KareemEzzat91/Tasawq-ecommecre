@@ -1,12 +1,8 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-import 'package:ecommerce/Api_List/ApiHelper.dart';
 import 'package:ecommerce/MainScreens/DetailPage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
-import 'package:searchable_listview/searchable_listview.dart';
-
 import '../responsive/responsive.dart';
 import 'Cart/Cart.dart';
 import 'Favorites/Favorites.dart';
@@ -296,7 +292,7 @@ class DataSearch extends SearchDelegate<String> {
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
-                      SizedBox(height: 7),
+                      const SizedBox(height: 7),
                       Text(
                         Suggestion.description ?? "",
                         style: TextStyle(
@@ -306,7 +302,7 @@ class DataSearch extends SearchDelegate<String> {
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
                       ),
-                      SizedBox(height: 7),
+                      const SizedBox(height: 7),
                       Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
